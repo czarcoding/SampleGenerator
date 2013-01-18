@@ -11,7 +11,7 @@ namespace SampleGen
         int sampleCount = 0;
         Random randomGenerator = new Random();
 
-        public Point[] makePointsArray(int n, int sampleCount)
+        public Point[] generatePointsArray(int n, int sampleCount)
         {
             Point[] points = new Point[sampleCount];
 
@@ -39,48 +39,5 @@ namespace SampleGen
             }
             return point;
         }
-
-        //public Point generatePoint(int n)
-       // {
-            /*Point point = new Point(n);
-
-            for (int i = 0; i < n; i++)
-            {
-                double value = randomGenerator.NextDouble();
-
-                double rangeSubstract = 0;
-                for (int j = 0; j < i; j++)
-                {
-                    rangeSubstract += point.p[j];
-                }
-                double maxRange = 1 - rangeSubstract;
-
-                if (i == n - 1)
-                {
-                    point.p[i] = maxRange;
-                }
-                else
-                {
-                    point.p[i] = value * maxRange;
-                }
-            }*/
-           // Point point = this.generateX(n);
-
-            //return point;
-            //Console.WriteLine(point.ToString());
-            /*
-            if (point.isAddingToOne())
-            {
-                Console.WriteLine("Point is valid, sum is 1");
-                return point;
-            }
-            else
-            {
-                Console.WriteLine("Point NOT valid!");
-                return null;
-            }
-             */
-
-        //}
     }
 }

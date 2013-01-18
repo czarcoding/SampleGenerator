@@ -8,8 +8,8 @@ namespace SampleGen
 {
     class PointProcessor
     {
-        double[][] matrix;
-        double[][] inverse;
+        double[][] mMatrix;
+        double[][] nMatrix;
 
         public Point tryFitSum(Point point, Point X)
         {
@@ -21,14 +21,14 @@ namespace SampleGen
             
             pointList.RemoveAt(0);
 
-            matrix = matrixCalculator.createMatrix(point, X, pointList);
-            inverse = matrixCalculator.createInverse(point, X, pointList);
+            mMatrix = matrixCalculator.createMatrix(point, X, pointList);
+            nMatrix = matrixCalculator.createInverse(point, X, pointList);
 
             Point local = this.toLocal(point);
             Console.WriteLine("=== TO LOCAL: " + local.ToString());
 
             //solver and modyfying local
-            double[,] m = Solver.prepareEquations(matrix);
+            double[,] m = Solver.prepareEquations(mMatrix);
             Solver.Solve(m);
            
             for (int i = 0; i < point.Dimensions - 1; i++)
@@ -62,9 +62,9 @@ namespace SampleGen
                 double r = 0;
                 for (int j = 0; j < p.Dimensions; j++)
                 {
-                    r += inverse[i][j] * p.p[j];
+                    r += nMatrix[i][j] * p.p[j];
                 }
-                r += inverse[i][p.Dimensions];
+                r += nMatrix[i][p.Dimensions];
                 result.p[i] = r;
             }
             return result;
@@ -78,9 +78,9 @@ namespace SampleGen
                 double r = 0;
                 for (int j = 0; j < p.Dimensions-1; j++)
                 {
-                    r += matrix[i][j] * p.p[j];
+                    r += mMatrix[i][j] * p.p[j];
                 }
-                r += matrix[i][p.Dimensions];
+                r += mMatrix[i][p.Dimensions];
                 result.p[i] = r;
             }
             return result;

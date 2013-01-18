@@ -11,13 +11,6 @@ namespace SampleGen
         private RandomPointGenerator generator;
         private ObservableCollection<Point> samplePArray;
 
-        private Point x;
-
-        public Point X
-        {
-            get { return this.x; }
-        }
-
         public ObservableCollection<Point> SamplePArray
         {
             get { return samplePArray; }

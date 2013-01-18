@@ -14,7 +14,7 @@ namespace SampleGen
     {
         private RandomPointGenerator generator;
         private PlaneProjector planeProjector;
-        private PointProcessor sampleProcessor;
+        private PointProcessor pointProcessor;
         private ObservableCollection<PointWrapper> sampleArray;
 
         private BackgroundWorker bgWorker;
@@ -38,17 +38,17 @@ namespace SampleGen
                 SampleArrayChanged(this, e);
         }
 
-        public bool run(int n, int dim, double d, Point X)
+        public bool run(int n, int dimension, double c, Point X)
         {
             generator = new RandomPointGenerator();
             planeProjector = new PlaneProjector();
-            sampleProcessor = new PointProcessor();
+            pointProcessor = new PointProcessor();
 
             Console.WriteLine("=================== NEW RUN ===================\n");
 
             if (X == null)
             {
-                X = generator.generatePoint(dim);
+                X = generator.generatePoint(dimension);
             }
 
             Console.WriteLine("X= " + X.ToString() + "\n");
@@ -56,7 +56,7 @@ namespace SampleGen
             //Preparing background worker;
             prepareObjects();
 
-            Object[] arguments = { n, dim, d, X };
+            Object[] arguments = { n, dimension, c, X };
 
             bgWorker.RunWorkerAsync(arguments);
 
@@ -90,7 +90,7 @@ namespace SampleGen
                 Console.WriteLine("\nPOINT No " + (totalPoints + 1) + " \n");
                 point = planeProjector.makePoint(X, d, dim);
 
-                point = sampleProcessor.processPoint(point, X);
+                point = pointProcessor.processPoint(point, X);
 
                 PointWrapper pointData = new PointWrapper(point, X, d);
                 if (pointData.IsValid)

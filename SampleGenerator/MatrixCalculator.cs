@@ -7,15 +7,20 @@ namespace SampleGen
 {
     class MatrixCalculator
     {
+        RandomPointGenerator generator;
+
+        public MatrixCalculator()
+        {
+            generator = new RandomPointGenerator();
+        }
+
         public List<Point> prepareVectors(Point p)
         {
-            RandomPointGenerator gen = new RandomPointGenerator();
-
             List<Point> pointList = new List<Point>();
 
             for (int i = 0; i < p.Dimensions-1; i++)
             {
-              pointList.Add(gen.generatePoint(p.Dimensions));
+              pointList.Add(generator.generatePoint(p.Dimensions));
             }
 
             for (int i =0; i< pointList.Count;i++)
