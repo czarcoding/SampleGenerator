@@ -93,6 +93,9 @@ namespace SampleGen
                 point = pointProcessor.processPoint(point, X);
 
                 PointWrapper pointData = new PointWrapper(point, X, d);
+                Console.WriteLine("Sum is: "+pointData.Sum);
+                pointData.calculateMean(X);
+                Console.WriteLine("Mean is: " + pointData.Mean);
                 if (pointData.IsValid)
                 {
                     sample.Add(pointData);

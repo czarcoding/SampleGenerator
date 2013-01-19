@@ -60,7 +60,7 @@
     <Compile Include="SolverTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SampleGenTest2\SampleGenerator.csproj">
+    <ProjectReference Include="..\SampleGenerator\SampleGenerator.csproj">
       <Project>{F5511242-781C-447F-A041-E7AFE6F2E0B3}</Project>
       <Name>SampleGenerator</Name>
     </ProjectReference>
