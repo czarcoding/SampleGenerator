@@ -23,6 +23,8 @@ namespace SampleGen
 
         public event SampleChangedEventHandler SampleArrayChanged;
 
+        AnnealingSettingsProvider settings;
+
         public ObservableCollection<PointWrapper> SampleArray
         {
             get { return sampleArray; }
@@ -43,6 +45,7 @@ namespace SampleGen
             generator = new RandomPointGenerator();
             planeProjector = new PlaneProjector();
             pointProcessor = new PointProcessor();
+            pointProcessor.AnnealingSettings = settings;
 
             Console.WriteLine("=================== NEW RUN ===================\n");
 
@@ -165,6 +168,11 @@ namespace SampleGen
             progressWindow.Cancel += cancelWork;
 
             progressWindow.Show();
+        }
+
+        public void setAnnealingSettings(AnnealingSettingsProvider settings)
+        {
+            this.settings = settings;
         }
 
     }

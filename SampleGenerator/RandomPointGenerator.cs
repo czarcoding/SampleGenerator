@@ -39,5 +39,37 @@ namespace SampleGen
             }
             return point;
         }
+
+        public Point generateTValues(int n)
+        {
+            Point point = new Point(n);
+            double range = 10;
+
+            for (int i = 0; i < n; i++)
+            {
+                double value = randomGenerator.NextDouble();
+                point.p[i] = (value*range)-range/2;
+            }
+            return point;
+            
+        }
+        public double generateDouble()
+        {
+            return randomGenerator.NextDouble();
+        }
+        public Point generateClosePoint(Point values, double temp)
+        {
+            Point point = new Point(values.Dimensions);
+            double range = 5*temp;
+            double max=range/2;
+            double min=-(range/2);
+
+            for (int i = 0; i < values.Dimensions; i++)
+            {
+                double value = randomGenerator.NextDouble()*(max-min)+min;
+                point.p[i] = values.p[i] + value;
+            }
+            return point;
+        }
     }
 }

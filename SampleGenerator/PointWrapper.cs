@@ -10,7 +10,7 @@ namespace SampleGen
         private Point point;
         private Point X;
         private double m;
-        private double errorMargin = 0.000000001;
+        private double errorMargin = 1e-12;
         public Point Point
         {
             get { return point; }
@@ -87,6 +87,7 @@ namespace SampleGen
             {
                 //Make some wider conditions
                 bool IsSumValid = (Math.Abs(this.Sum - 1)<=errorMargin);
+                //bool IsSumValid = (this.Sum == 1);
                 this.calculateMean(this.X);
                 bool IsMeanValid = (Math.Abs(this.Mean - m) <= errorMargin);
                 bool IsAboveZero = ValuesInRange;

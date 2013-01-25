@@ -10,6 +10,30 @@ namespace SampleGen
     {
         double[][] mMatrix;
         double[][] nMatrix;
+
+        private AnnealingSettingsProvider annealingSettings;
+
+        internal AnnealingSettingsProvider AnnealingSettings
+        {
+            get { return annealingSettings; }
+            set
+            {
+                if (value != null)
+                {
+                    annealingSettings = value;
+                }
+            }
+        }
+
+        public PointProcessor()
+        {
+            annealingSettings = new AnnealingSettingsProvider();
+            annealingSettings.MaxAnnealingIterations = 100;
+            annealingSettings.InnerAnnealingIterations = 500;
+            annealingSettings.StartingTemperature = 10;
+            annealingSettings.CoolingFactor = 0.90;
+        }
+
         public Point tryAnnealing(Point point, Point X)
         {
             MatrixCalculator matrixCalculator = new MatrixCalculator();
@@ -118,19 +142,34 @@ namespace SampleGen
         {
             Point result = null;
             RandomPointGenerator generator = new RandomPointGenerator();
-            int maxIter = 10;
+            int maxIter = annealingSettings.MaxAnnealingIterations;
             int j = 0;
-            Point values = generator.generatePoint(p.Dimensions-2);
-            Point bestValues = generator.generatePoint(p.Dimensions - 2);
-            double temperature = 500;
-            double tempFactor = 0.90;
+            Point values = generator.generateTValues(p.Dimensions-2);
+            Point bestValues = generator.generateTValues(p.Dimensions - 2);
+            Point last = values;
+            double temperature = annealingSettings.StartingTemperature;
+            double tempFactor = annealingSettings.CoolingFactor;
+            double innerIterations = annealingSettings.InnerAnnealingIterations;
             double condition = 0;
+
+      //      double avgCost = annealingSettings.StartingTemperature;
+    //        double P1 = 0.95;
+
+  //          double G = annealingSettings.MaxAnnealingIterations-annealingSettings.InnerAnnealingIterations;
+
+//            double temperature = (-avgCost)/(Math.Log(P1));
+
+            //double P2 = annealingSettings.CoolingFactor;
+
+
+            //double tempFactor = Math.Pow((-avgCost/(temperature * Math.Log(P2))),(1.0 / (G*innerIterations)));
+            
             do
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < innerIterations; i++)
                 {
-                    Point testValues = generator.generatePoint(p.Dimensions - 2);
-
+                    //Point testValues = generator.generateTValues(p.Dimensions - 2);
+                    Point testValues = generator.generateClosePoint(values, temperature);
                     if (targetFunction(p, testValues) < targetFunction(p, bestValues))
                     {
                         bestValues = testValues;
@@ -143,19 +182,32 @@ namespace SampleGen
                     }
                     else
                     {
-                        double val = generator.generatePoint(1).p[0];
-                        if (val < Math.Exp((-r) / temperature))
+                        double val = generator.generateDouble();
+                        double threshold = Math.Exp((-r) / temperature);
+                        if (val < threshold)
                         {
                             values = testValues;
                         }
                     }
                 }
+               // if ((Math.Abs(targetFunction(p, values) - targetFunction(p, last))) <= 0.000001)
+                //{
+                 //   break;
+                //}
+                last = values;
                 Console.WriteLine("End of era");
-                temperature = temperature * tempFactor;
-                condition = targetFunction(p, bestValues);
+
+                    temperature = temperature * tempFactor;
+
+                Console.WriteLine(temperature);
+                condition = targetFunction(p, values);
                 Console.WriteLine("Target value is: "+condition);
+                if (condition <= 1)
+                {
+                    break;
+                }
                 j++;
-            } while (condition>1&&j<maxIter);
+            } while (j<maxIter);
 
             result = makeK(p,bestValues);
             Console.WriteLine(result.ToString());

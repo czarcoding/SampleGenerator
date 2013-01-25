@@ -35,7 +35,7 @@ namespace SampleGen
         private string xRegex = "\\d+(\\.\\d+)?";
 
         private bool generateX = false;
-
+        AnnealingSettingsProvider sett;
         //private Point x;
 
         private SampleGenerator sampleGenerator;
@@ -68,6 +68,7 @@ namespace SampleGen
             double mean = 0;
 
             sampleGenerator = new SampleGenerator();
+            sampleGenerator.setAnnealingSettings(this.sett);
             sampleGenerator.SampleArrayChanged += SampleChanged;
 
             try
@@ -191,6 +192,17 @@ namespace SampleGen
             {
                 FileManager manager = new FileManager();
                 manager.trySavePoints(points);
+            }
+        }
+
+        private void setAnnealing_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow annealing = new SettingsWindow();
+            bool? result = annealing.ShowDialog();
+            if (result == true)
+            {
+                Console.WriteLine(annealing.Settings.ToString());
+                this.sett = annealing.Settings;
             }
         }
     }
