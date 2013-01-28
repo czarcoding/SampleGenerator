@@ -63,10 +63,10 @@ namespace SampleGen
             try
             {
                 settings = new AnnealingSettingsProvider();
-                settings.MaxAnnealingIterations = int.Parse(MaxAnnealingItTextBox.Text);
-                settings.InnerAnnealingIterations = int.Parse(InnerAnnealingItTextBox.Text);
-                settings.StartingTemperature = double.Parse(InitTemperatureTextBox.Text);
-                settings.CoolingFactor = double.Parse(CoolingFactorTextBox.Text);
+                settings.MaxAnnealingIterations = int.Parse(MaxAnnealingEditor.TextBoxText);
+                settings.InnerAnnealingIterations = int.Parse(InnerAnnealingEditor.TextBoxText);
+                settings.StartingTemperature = double.Parse(StartingTemperatureEditor.TextBoxText);
+                settings.CoolingFactor = double.Parse(CoolingFactorEditor.TextBoxText);
 
                 this.DialogResult = true;
 

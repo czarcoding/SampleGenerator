@@ -42,6 +42,22 @@ namespace SampleGen
                 return output;
             }
         }
+        public string ValuesTooltip
+        {
+            get
+            {
+                string output = "";
+                for (int i = 0; i < point.Dimensions; i++)
+                {
+                    if ((i>0)&&(i % 5 == 0))
+                    {
+                        output += "\n";
+                    }
+                    output += " p" + (i + 1) + ": " + point.p[i];
+                }
+                return output;
+            }
+        }
 
         public void calculateMean(Point X)
         {

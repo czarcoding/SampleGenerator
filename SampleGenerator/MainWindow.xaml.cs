@@ -18,6 +18,7 @@ using System.Windows.Media.Animation;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SampleGen
 {
@@ -36,9 +37,41 @@ namespace SampleGen
 
         private bool generateX = false;
         AnnealingSettingsProvider sett;
-        //private Point x;
 
         private SampleGenerator sampleGenerator;
+
+        PerformanceCounter cpuCounter;
+
+        public string MemoryUsed
+        {
+            get
+            {
+                return "Memory used: " + (GC.GetTotalMemory(false)).ToString() + " B";
+            }
+        }
+
+        public string CpuUsed
+        {
+            get
+            {
+                if (cpuCounter == null)
+                {
+                    cpuCounter = new PerformanceCounter();
+                    cpuCounter.CategoryName = "Processor";
+                    cpuCounter.CounterName = "% Processor Time";
+                    cpuCounter.InstanceName = "_Total";
+                }
+                float firstValue = cpuCounter.NextValue();
+                System.Threading.Thread.Sleep(1000);
+                // now matches task manager reading
+                float secondValue = cpuCounter.NextValue();
+
+                return secondValue.ToString();
+               
+                
+              //  return GC.GetTotalMemory(false).ToString();
+            }
+        }
 
         public MainWindow()
         {
@@ -46,7 +79,7 @@ namespace SampleGen
 
             consoleRedirectWriter.OnWrite += delegate(string value) { lastConsoleString = value; };
             Console.WriteLine("Console output redirected\n");
-            DimensionTextBox.Focus();
+            DimensionEditor.TextBoxFocus();
         }
 
         private void consoleTextBox_Initialized(object sender, EventArgs e)
@@ -73,9 +106,9 @@ namespace SampleGen
 
             try
             {
-                dimension = int.Parse(DimensionTextBox.Text);
-                sampleCount = int.Parse(SampleCountTextBox.Text);
-                mean = double.Parse(MeanTextBox.Text);
+                dimension = int.Parse(DimensionEditor.TextBoxText);
+                sampleCount = int.Parse(SampleCountEditor.TextBoxText);
+                mean = double.Parse(MeanEditor.TextBoxText);
 
                 Point x = parseXInput(dimension);
 
@@ -123,7 +156,7 @@ namespace SampleGen
         {
             if (!generateX)
             {
-                string text = this.XValuesTextBox.Text;
+                string text = this.XvaluesEditor.TextBoxText;
 
                 if (text == null || text.Equals(""))
                 {
@@ -165,15 +198,17 @@ namespace SampleGen
         private void isRandomX_Checked(object sender, RoutedEventArgs e)
         {
             generateX = true;
-            XValuesLabel.IsEnabled = false;
-            XValuesTextBox.IsEnabled = false;
+            XvaluesEditor.IsEnabled = false;
+            //XValuesLabel.IsEnabled = false;
+            //XValuesTextBox.IsEnabled = false;
         }
 
         private void isRandomX_Unchecked(object sender, RoutedEventArgs e)
         {
             generateX = false;
-            XValuesLabel.IsEnabled = true;
-            XValuesTextBox.IsEnabled = true;
+            XvaluesEditor.IsEnabled = true;
+            //XValuesLabel.IsEnabled = true;
+            //XValuesTextBox.IsEnabled = true;
         }
 
         public void SampleChanged(object sender, EventArgs e)

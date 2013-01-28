@@ -1,17 +1,20 @@
 ﻿<Window x:Class="SampleGen.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="450" Width="800"
+        xmlns:dc="clr-namespace:SampleGenControls;assembly=SampleGenControls"
+        Title="Sample Generator" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <DockPanel LastChildFill="True">
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <WrapPanel FlowDirection="LeftToRight">
+                    <!--<Label Name="CpuLabel" Margin="0,0,5,0" Content="{Binding Path=CpuUsed}"/>
+                    <Label Name="MemoryLabel" Content="{Binding Path=MemoryUsed}"/>-->
                 </WrapPanel>
             </StatusBarItem>
         </StatusBar>
         <StackPanel DockPanel.Dock="Right" Margin="5" Width="200" >
-            <Grid>
+            <!--   <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -24,15 +27,19 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Grid.Row="0" Content="Dimensions"/>
-                <TextBox Grid.Column="1" Grid.Row="0" Margin="0,0,0,5" Name="DimensionTextBox" KeyDown="textBox_KeyDown" />
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="0,0,0,5" Name="DimensionTextBox" Text="{Binding Path=Dimension}" KeyDown="textBox_KeyDown" />
                 <Label Grid.Column="0" Grid.Row="1" Content="Sample count"/>
                 <TextBox Grid.Column="1" Grid.Row="1" Margin="0,0,0,5" Name="SampleCountTextBox" KeyDown="textBox_KeyDown" />
                 <Label Grid.Column="0" Grid.Row="2" Content="Mean"/>
                 <TextBox Grid.Column="1" Grid.Row="2" Margin="0,0,0,5" Name="MeanTextBox" KeyDown="textBox_KeyDown" />
 
-            </Grid>
+            </Grid>-->
+            <dc:LabeledTextBox Name="DimensionEditor" Margin="0,0,0,5" LabelWidth="85" LabelText="Dimensions" KeyDown="textBox_KeyDown"/>
+            <dc:LabeledTextBox Name="SampleCountEditor" Margin="0,0,0,5" LabelWidth="85" LabelText="Sample count"/>
+            <dc:LabeledTextBox Name="MeanEditor" Margin="0,0,0,5" LabelWidth="85" LabelText="Mean"/>
             <CheckBox Margin="10" Name="isRandomX" Content="Generate random X values" Checked="isRandomX_Checked" Unchecked="isRandomX_Unchecked" />
-            <Grid>
+            <dc:LabeledTextBox Name="XvaluesEditor" Margin="0,0,0,5" LabelWidth="85" LabelText="X values"/>
+            <!--<Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="83"/>
                     <ColumnDefinition Width="117*"/>
@@ -42,7 +49,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Name="XValuesLabel" Content="X values"/>
                 <TextBox Grid.Column="1" Margin="0,0,0,5" Name="XValuesTextBox" KeyDown="textBox_KeyDown"/>
-            </Grid>
+            </Grid>-->
             <Button Margin="10" Name="generateSampleButton" Content="Generate sample" Width="110" Click="generateSampleButton_Click" />
             <Button Margin="10" Name="clearConsoleButton" Content="Clear console" Width="110" Click="clearConsoleButton_Click" />
             <Button Margin="10" Name="savePointsButton" Content="Save points to file" Width="110" Click="savePointsButton_Click" />
@@ -53,7 +60,7 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Margin" Value="0"/>
-                        <Setter Property="ToolTip" Value="{Binding PointValues}" />
+                        <Setter Property="ToolTip" Value="{Binding ValuesTooltip}" />
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding IsValid}"

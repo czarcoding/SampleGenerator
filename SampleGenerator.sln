@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "El
 		SampleGenerator.vsd = SampleGenerator.vsd
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleGenControls", "SampleGenControls\SampleGenControls.csproj", "{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SampleGenTest2.vsmdi
@@ -50,6 +52,16 @@ Global
 		{06AFB29B-51AB-46EC-BF07-20A1E2C98CBE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{06AFB29B-51AB-46EC-BF07-20A1E2C98CBE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{06AFB29B-51AB-46EC-BF07-20A1E2C98CBE}.Release|x86.ActiveCfg = Release|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{ED7D78CE-2130-4BD6-A626-A6571B42B1EB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

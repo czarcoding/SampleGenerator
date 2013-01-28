@@ -29,7 +29,7 @@ namespace SampleGen
         {
             annealingSettings = new AnnealingSettingsProvider();
             annealingSettings.MaxAnnealingIterations = 100;
-            annealingSettings.InnerAnnealingIterations = 500;
+            annealingSettings.InnerAnnealingIterations = 1000;
             annealingSettings.StartingTemperature = 10;
             annealingSettings.CoolingFactor = 0.90;
         }
